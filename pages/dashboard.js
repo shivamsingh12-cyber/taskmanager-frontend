@@ -164,24 +164,32 @@ const [dueDateFilter, setDueDateFilter] = useState('');
 
   return (
     <div style={{ padding: '2rem' }}>
-    <h2 style={{ marginBottom: '1rem' }}>Dashboard</h2>
+<div style={{ backgroundColor: '#007bff', color: '#fff', padding: '1.5rem', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+  <h2 style={{ margin: 0, fontSize: '2rem', fontWeight: 'bold' }}>Dashboard</h2>
 
-    <button
-      style={{
-        backgroundColor: '#ff4d4d',
-        color: 'white',
-        padding: '0.5rem 1rem',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-      }}
-      onClick={() => {
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-      }}
-    >
-      Logout
-    </button>
+  <button
+    style={{
+      backgroundColor: '#ff4d4d',
+      color: 'white',
+      padding: '0.5rem 1rem',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontWeight: 'bold',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+      transition: 'background-color 0.3s ease',
+    }}
+    onClick={() => {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }}
+    onMouseEnter={(e) => e.target.style.backgroundColor = '#d83d3d'}
+    onMouseLeave={(e) => e.target.style.backgroundColor = '#ff4d4d'}
+  >
+    Logout
+  </button>
+</div>
+
 
     <a
   href="/AnalyticsDashboard"
