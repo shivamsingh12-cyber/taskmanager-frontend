@@ -14,10 +14,12 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post('/auth/login', form);
+      console.log('Login success:', res.data);
       localStorage.setItem('token', res.data.token);
       router.push('/dashboard');
     } catch (err) {
-      alert('Login failed');
+      console.error('Login failed:', err.response?.data || err.message);
+      alert('Login failed: ' + (err.response?.data?.message || 'Something went wrong'));
     }
   };
 
