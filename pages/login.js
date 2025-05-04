@@ -13,7 +13,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/auth/login', form);
+      const res = await axiosInstance.post('/auth/login', form);
       console.log('Login success:', res.data);
       localStorage.setItem('token', res.data.token);
       router.push('/dashboard');
