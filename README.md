@@ -1,40 +1,150 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Task Management System - Project Summary
 
-## Getting Started
+## Overview
 
-First, run the development server:
+A full-stack Task Management System with the following tech stack:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+* **Frontend**: Next.js (Vercel)
+* **Backend**: Node.js + Express (Render)
+* **Database**: MongoDB (MongoDB Atlas)
+
+### Features
+
+* User authentication (JWT-based)
+* Task CRUD operations
+* Analytics dashboard
+* Team collaboration features
+* Protected routes and session handling
+
+---
+
+## Backend - Node.js + Express
+
+### Setup
+
+* Initialized with `npm init -y`
+* Installed dependencies:
+
+  //run below cmd
+  npm install express mongoose cors jsonwebtoken bcrypt dotenv
+
+
+### Database
+
+* MongoDB Atlas with Mongoose
+* Models:
+
+  * `User`
+  * `Task`
+
+### Authentication
+
+* JWT-based login and register routes
+* Middleware for token verification
+
+### API Routes
+
+* **Auth**: `/api/auth/login`, `/api/auth/register`
+* **Tasks**:
+
+  * `POST /api/tasks`
+  * `GET /api/tasks`
+  * `PUT /api/tasks/:id`
+  * `DELETE /api/tasks/:id`
+  
+* **Analytics**:
+
+  * `GET /api/analytics/summary`
+  * Data points: completed tasks/user, overdue tasks, task completion rate
+
+### CORS Handling
+
+```js
+const corsOptions = {
+  origin: ['https://frontend-black-gamma-72.vercel.app'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Deployment
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+* Deployed to **Render**
+* Configured environment variables:
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+  * `MONGO_URI`
+  * `JWT_SECRET`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Frontend - Next.js
 
-## Learn More
+### Setup
 
-To learn more about Next.js, take a look at the following resources:
+* Pages:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+  * `/login`, `/register`, `/dashboard`
+* Used `axios` with an instance:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```js
+const instance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL
+});
+```
 
-## Deploy on Vercel
+### Auth Flow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Login form sends `POST /auth/login`
+* On success, stores token in `localStorage` and redirects
+* Axios interceptor adds token to requests automatically
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### Dashboard
+
+* Displays tasks, analytics (e.g., completed, overdue)
+* Can use Recharts or Chart.js
+
+### Error Handling
+
+* API errors handled with `try/catch`
+* UI shows relevant error messages
+
+### Environment Variables
+
+```
+.env.local
+NEXT_PUBLIC_API_URL=https://taskmanager-backend-xxxxx.onrender.com/api
+```
+
+### Deployment
+
+* Deployed on **Vercel**
+* Linked GitHub repo for CI/CD
+* Set environment variables via Vercel dashboard
+
+---
+
+## Debugging Process
+
+* Used browser console logs
+* Investigated `405 Method Not Allowed` and CORS issues
+* Solved by correcting base URLs and CORS options
+
+---
+
+## Deployment Best Practices
+
+* Used GitHub integration for automatic deployment
+* Pushed latest commits to deploy latest version
+* Used Vercel preview branches to avoid affecting production
+* Verified backend CORS settings include frontend domain
+
+---
+
+## Credentials to login or create another one
+
+  1. email: alice@example.com,
+     password: 123456
+
+  2. email: mahesh@example.com,
+     password: 123456
+
